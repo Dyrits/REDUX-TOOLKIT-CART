@@ -1,4 +1,8 @@
-# Redux Toolkit
+# Redux Toolkit - Cart
+
+---
+
+# Redux Toolkit (by John Smilga)
 
 #### React Course
 
