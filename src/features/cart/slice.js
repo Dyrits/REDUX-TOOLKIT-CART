@@ -1,17 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import items from "./items";
 
-const getAmount = items => items.reduce((accumulator, item) => accumulator + item.amount, 0);
-const getTotal = items => Math.round(items.reduce((accumulator, item) => accumulator + Number(item.price) * item.amount, 0) * 100) / 100;
-
 const initialState = {
     items,
-    amount: getAmount(items),
-    total: getTotal(items),
+    amount: items.reduce((accumulator, item) => accumulator + item.amount, 0),
+    total: items.reduce((accumulator, item) => accumulator + Number(item.price) * item.amount, 0),
     isLoading: true,
 };
-
-
 
 const slice = createSlice({
     name: "cart",
@@ -24,26 +19,24 @@ const slice = createSlice({
         },
         remove: (state, { payload }) => {
             state.items = state.items.filter(item => item.id !== payload);
-            state.amount = getAmount(state.items);
-            state.total = getTotal(state.items);
         },
         increase: (state, { payload }) => {
             const item = state.items.find(item => item.id === payload);
             item.amount ++;
-            state.amount = getAmount(state.items);
-            state.total = getTotal(state.items);
         },
         decrease: (state, { payload}) => {
             const item = state.items.find(item => item.id === payload);
             item.amount --;
             if (item.amount === 0) { state.items = state.items.filter(item => item.id !== payload); }
-            state.amount = getAmount(state.items);
-            state.total = getTotal(state.items);
         },
+        calculate: (state) => {
+            state.amount = state.items.reduce((accumulator, item) => accumulator + item.amount, 0);
+            state.total = state.items.reduce((accumulator, item) => accumulator + Number(item.price) * item.amount, 0);
+        }
     }
 });
 
-export const { clear, remove, increase, decrease } = slice.actions;
+export const { clear, remove, increase, decrease, calculate } = slice.actions;
 
 console.log(slice);
 
