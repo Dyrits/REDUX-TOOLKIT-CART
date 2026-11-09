@@ -8,13 +8,20 @@ From the original README: this project follows John Smilga's [React course](http
 
 ## Built With
 
-- React (Create React App)
+- React 17 / Vite 8
 - Redux Toolkit / React Redux
 - axios
 
 ## Getting Started
 
-Install the dependencies with `npm install`, then start the development server with `npm start` and open http://localhost:3000.
+Use Node.js 26 LTS (`nvm use`), install the locked dependencies with `npm ci`, then run `npm start` and open http://localhost:3000.
+
+- `npm run build`: production assets in `build/`, preserving the previous output directory.
+- `npm run preview`: inspect the production build locally (not a production server).
+- `npm test`: cart, modal, async-loading and error-path regression tests.
+- `npm run test:watch`: interactive tests.
+
+The former Create React App toolchain has been replaced by Vite. React 17 and the existing Redux store API are unchanged. Vite targets modern browsers; the old CRA Browserslist configuration no longer applies. The app still loads demo cart data from `course-api.com`; automated tests use fixtures rather than relying on that service. No deployment is configured by this change.
 
 ## License
 
